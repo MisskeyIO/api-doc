@@ -1,0 +1,11 @@
+openapi: 3.1.0
+x-stoplight:
+  id: 9hb6kbh1rn8v6
+info:
+  title: Misskey API
+  version: 13.14.2
+servers:
+  - url: 'https://misskey.io/api'
+paths: {}
+components:
+  schemas: {}
