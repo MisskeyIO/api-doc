@@ -6,6 +6,147 @@ info:
   version: 13.14.2
 servers:
   - url: 'https://misskey.io/api'
-paths: {}
+paths:
+  /notes/create:
+    post:
+      summary: create
+      operationId: post-notes-create
+      responses:
+        '200':
+          description: OK
+      x-stoplight:
+        id: luwmz5hkm9vbl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                i:
+                  $ref: '#/components/schemas/api-key'
+                  x-stoplight:
+                    id: toljj55uqbn4z
+                visibility:
+                  $ref: '#/components/schemas/visibility'
+                  x-stoplight:
+                    id: hredj1gqe805a
+                visibleUserIds:
+                  $ref: '#/components/schemas/id'
+                  x-stoplight:
+                    id: 8cpuutfwmcofm
+                cw:
+                  type: string
+                  x-stoplight:
+                    id: nxjmxyiaijhs8
+                localOnly:
+                  type: boolean
+                  x-stoplight:
+                    id: sga3iu03wrv0a
+                reactionAcceptance:
+                  x-stoplight:
+                    id: qrdvyki66s6wx
+                  enum:
+                    - null
+                    - likeOnly
+                    - likeOnlyForRemote
+                    - nonSensitiveOnly
+                    - nonSensitiveOnlyForLocalLikeOnlyForRemote
+                noExtractMentions:
+                  type: boolean
+                  x-stoplight:
+                    id: 2uayo5waftv2s
+                noExtractHashtags:
+                  type: boolean
+                  x-stoplight:
+                    id: sprb4mngr1go2
+                noExtractEmojis:
+                  type: boolean
+                  x-stoplight:
+                    id: xc4ox8c9at46s
+                replyId:
+                  $ref: '#/components/schemas/id'
+                  x-stoplight:
+                    id: ul06kzylusljh
+                channelId:
+                  $ref: '#/components/schemas/id'
+                  x-stoplight:
+                    id: xqn7g7661d6k3
+                text:
+                  type: string
+                  x-stoplight:
+                    id: b7mi6g4rp3n6k
+                fileIds:
+                  $ref: '#/components/schemas/id'
+                  x-stoplight:
+                    id: 6rwh310u3fjpx
+                mediaIds:
+                  $ref: '#/components/schemas/id'
+                  x-stoplight:
+                    id: 7qbezjzaqx5lw
+                poll:
+                  type: object
+                  x-stoplight:
+                    id: 0z6q9vejeojuf
+                  properties:
+                    choices:
+                      type: array
+                      x-stoplight:
+                        id: q8tzbwfaxer6h
+                      items: {}
+                    multiple:
+                      type: boolean
+                      x-stoplight:
+                        id: t6jopne6js4xi
+                    expiresAt:
+                      type: number
+                      x-stoplight:
+                        id: 5olc3u3s7vzmo
+                    expiredAfter:
+                      type: number
+                      x-stoplight:
+                        id: 0h5wdgi336vvf
+              required:
+                - i
+                - text
+      parameters: []
 components:
-  schemas: {}
+  schemas:
+    api-key:
+      title: API Key
+      x-stoplight:
+        id: y0i7vc4fhf4od
+      x-tags:
+        - API Key
+      type: string
+      description: |-
+        APIキー
+        公開範囲が限定されている投稿を取得する際に利用します
+    visibility:
+      title: Visibility
+      x-stoplight:
+        id: sys2nqoqjj1at
+      enum:
+        - public
+        - home
+        - followers
+        - specified
+    id:
+      title: ID
+      x-stoplight:
+        id: oek8eeix24y7c
+      examples:
+        - string
+      anyOf:
+        - x-stoplight:
+            id: vt0rxn1lol434
+          format: AID
+          description: '長さ8の[2000年1月1日からの経過ミリ秒をbase36でエンコードしたもの] + 長さ2の[ノイズ文字列]'
+        - x-stoplight:
+            id: pzonb0umnlxla
+          format: AIDX
+          description: '長さ8の[2000年1月1日からの経過ミリ秒をbase36でエンコードしたもの] + 長さ4の[個体ID] + 長さ4の[カウンタ]'
+        - x-stoplight:
+            id: xy5rru9ks6s16
+          format: ULID
+          description: Crockford's Base32
+      type: string
